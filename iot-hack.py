@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import current_app
+from flask import current_app, response, request
 
 import config
 
@@ -12,9 +12,10 @@ def hello_world():
     return 'Hello World!'
 
 
-@app.route('/api/')
+@app.route('/api/', methods=['POST', 'GET'])
 def thingsee_in():
-    return "APIII"
+    print "API request"
+    return "test"
 
 @app.route('/debug/')
 def debug_mode():
