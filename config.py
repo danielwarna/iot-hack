@@ -17,3 +17,4 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'dev.db')
     #DATABASE = '/tmp/flaskr.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    PORT = 80
