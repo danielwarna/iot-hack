@@ -1,11 +1,39 @@
-from flask import Flask
-from flask import current_app, request
+from flask import Flask, current_app, request
+from flask.ext.sqlalchemy import SQLAlchemy
+
+from datetime import datetime
 
 import config
 
 app = Flask(__name__)
 
 app.config.from_object(config.DevelopmentConfig)
+
+db = SQLAlchemy(app)
+
+
+# inout transactions
+class Measurement(db.Model):
+    
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime())
+    sensor = db.Column(db.String())
+    value = db.Column(db.Float())
+
+    def __init__(self, timestamp, sensor, value):
+        self.timestamp = timestamp
+        self.sensor = sensor;
+        self.value = value
+
+
+db.create_all()
+
+for i in range(1, 100):
+    m = Measurement(datetime.today(), "TEST", 532.22)
+    db.session.add(m)
+
+db.session.commit()  
+
 
 @app.route('/', methods=['POST', 'GET'])
 def hello_world():
