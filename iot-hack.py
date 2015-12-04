@@ -2,6 +2,7 @@ from flask import Flask, current_app, request
 from flask.ext.sqlalchemy import SQLAlchemy
 
 from datetime import datetime
+from graphs import serve_graph
 
 import config
 
@@ -61,5 +62,14 @@ def debug_mode():
     return "aa"
 
 
+@app.route('/graph/')
+def show_graph():
+    # TODO get this from database
+    sensor_values_1 = [1, 2, 3, 4]
+    sensor_values_2 = [4, 3, 2, 1]
+    sensor_values_3 = [8, 7, 6, 3]
+    return serve_graph(sensor_values_1, sensor_values_2, sensor_values_3)
+
+
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=80)
+    app.run(host="0.0.0.0", port=5000)
