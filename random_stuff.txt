@@ -1,0 +1,38 @@
+--- COMMAND:
+curl -H "Content-Type: application/json" \
+     -X "POST" "http://api.thingsee.com/v2/accounts/login" \
+     -d '{  \
+        "email": "vkall@msn.com",  \
+        "password": "perj4nt4i"  \
+     }'
+
+--- RESULT Magnus:
+{"statusCode":400,"error":"Bad Request","message":"Invalid request payload JSON format"}
+
+--- RESULT Benno:
+{"accountAuthUuid":"91a49390-9227-11e5-b598-8bcfdba7ea12","accountAuthToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0cyI6MTQ0OTI1MTM0MTAyOSwidXVpZCI6IjkxYTQ5MzkwLTkyMjctMTFlNS1iNTk4LThiY2ZkYmE3ZWExMiIsInNjb3BlIjpbImFsbDphbGwiXSwiaWF0IjoxNDQ5MjUxMzQxLCJleHAiOjE0NDk4NTYxNDF9.BfUZfeoCupT5b2bPKuqWPmHaqF_Nvf7Bb4NLEHf5Uh0","timestamp":1449251341029}[bwarna@tuxedo ~]$
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0cyI6MTQ0OTI1MTM0MTAyOSwidXVpZCI6IjkxYTQ5MzkwLTkyMjctMTFlNS1iNTk4LThiY2ZkYmE3ZWExMiIsInNjb3BlIjpbImFsbDphbGwiXSwiaWF0IjoxNDQ5MjUxMzQxLCJleHAiOjE0NDk4NTYxNDF9.BfUZfeoCupT5b2bPKuqWPmHaqF_Nvf7Bb4NLEHf5Uh0
+
+--- COMMAND:
+curl -X "POST" "http://api.thingsee.com/v2/accounts/login" \
+  -d $'{
+  "email": "vkall@msn.com",
+  "password": "perj4nt4i"
+}'
+
+--- RESULT Magnus:
+{"statusCode":400,"error":"Bad Request","message":"invalid payload"}
+
+
+--- COMMAND Viktor:
+curl -H "Content-Type: application/json" -X "POST" "http://api.thingsee.com/v2/accounts/login" -d '{"email": "vkall@msn.com", "password": "perj4nt4i"}'
+
+--- RESULT Viktor:
+{"accountAuthUuid":"91a49390-9227-11e5-b598-8bcfdba7ea12","accountAuthToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0cyI6MTQ0OTI1MTc2ODExMSwidXVpZCI6IjkxYTQ5MzkwLTkyMjctMTFlNS1iNTk4LThiY2ZkYmE3ZWExMiIsInNjb3BlIjpbImFsbDphbGwiXSwiaWF0IjoxNDQ5MjUxNzY4LCJleHAiOjE0NDk4NTY1Njh9.eyGoTg168K-sD-8P4kMp9wGxpEGkPhi_I-iwYZ7LIR0","timestamp":1449251768111}
+
+
+--- COMMAND:
+curl -X "GET" "http://api.thingsee.com/v2/events/{91a49390-9227-11e5-b598-8bcfdba7ea12}" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0cyI6MTQ0OTI1NDU1MTk0NSwidXVpZCI6IjkxYTQ5MzkwLTkyMjctMTFlNS1iNTk4LThiY2ZkYmE3ZWExMiIsInNjb3BlIjpbImFsbDphbGwiXSwiaWF0IjoxNDQ5MjU0NTUxLCJleHAiOjE0NDk4NTkzNTF9.5a3-A7aOujLAbq_nk--u5SohSGziBuOyi3G7KgwH11M"
+
+---RESULT Magnus:
+{"statusCode":401,"error":"Unauthorized"}
