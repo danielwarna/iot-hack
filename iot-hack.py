@@ -1,7 +1,6 @@
 from flask import Flask
 from flask import current_app, request
-from flask import make_response, send_file
-import cStringIO
+from graphs import serve_graph
 
 import config
 
@@ -24,34 +23,20 @@ def thingsee_in():
     print "Thingsee endpoint"
     return "test"
    
-"""
+
 @app.route('/debug/')
 def debug_mode():
     assert current_app.debug == False, "Don't panic! You're here by request of debug()"
     return "aa"
-"""
 
 
 @app.route('/graph/')
-def debug_mode():
-    import matplotlib.pyplot as plt
-    #plt.plot([1, 2, 3, 4])
-    #plt.ylabel('some numbers')
-    # plt.show()
-    # return "aa"
-    #return plt.show()
-    #response = make_response(plt.show())
-    RAM = cStringIO.StringIO()
-    CHART = plt.figure()
-
-
-    CHART.savefig(RAM, format='png')
-    RAM.seek(0)
-    return send_file(RAM, mimetype='image/png')
-
-    # response.headers['Content-Type'] = 'image/jpeg'
-    # response.headers['Content-Disposition'] = 'attachment; filename=img.jpg'
-    # return response
+def show_graph():
+    # TODO get this from database
+    sensor_values_1 = [1, 2, 3, 4]
+    sensor_values_2 = [4, 3, 2, 1]
+    sensor_values_3 = [8, 7, 6, 3]
+    return serve_graph(sensor_values_1, sensor_values_2, sensor_values_3)
 
 
 @app.route('/<path:path>', methods=['POST', 'GET'])
