@@ -15,12 +15,14 @@ def hello_world():
 
 @app.route('/api/', methods=['POST', 'GET'])
 def api():
-    print "API request"
+    print "API request" 
+    print request.get_json()
     return "test"
 
 @app.route('/v2/events/', methods=['POST', 'GET'])
 def thingsee_in():
     print "Thingsee endpoint"
+    print request.get_json()
     return "test"
    
 
@@ -28,7 +30,6 @@ def thingsee_in():
 def debug_mode():
     assert current_app.debug == False, "Don't panic! You're here by request of debug()"
     return "aa"
-
 
 @app.route('/graph/')
 def show_graph():
@@ -39,9 +40,10 @@ def show_graph():
     return serve_graph(sensor_values_1, sensor_values_2, sensor_values_3)
 
 
-@app.route('/<path:path>', methods=['POST', 'GET'])
+@app.route('/<path:path>/', methods=['POST', 'GET'])
 def matchall(path):
     print "catch all the things"
+    print request.get_json()
     return "test"
 
 if __name__ == '__main__':
