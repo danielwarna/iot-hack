@@ -20,3 +20,10 @@ curl -X "POST" "http://api.thingsee.com/v2/accounts/login" \
 }'
 
 {"statusCode":400,"error":"Bad Request","message":"invalid payload"}
+
+
+Viktor:
+curl -H "Content-Type: application/json" -X "POST" "http://api.thingsee.com/v2/accounts/login" -d '{"email": "vkall@msn.com", "password": "perj4nt4i"}'
+
+Result:
+{"accountAuthUuid":"91a49390-9227-11e5-b598-8bcfdba7ea12","accountAuthToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0cyI6MTQ0OTI1MTc2ODExMSwidXVpZCI6IjkxYTQ5MzkwLTkyMjctMTFlNS1iNTk4LThiY2ZkYmE3ZWExMiIsInNjb3BlIjpbImFsbDphbGwiXSwiaWF0IjoxNDQ5MjUxNzY4LCJleHAiOjE0NDk4NTY1Njh9.eyGoTg168K-sD-8P4kMp9wGxpEGkPhi_I-iwYZ7LIR0","timestamp":1449251768111}
