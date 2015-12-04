@@ -12,7 +12,7 @@ def hello_world():
 
 
 @app.route('/api/')
-def thingsee_in()
+def thingsee_in():
     return "APIII"
 
 if __name__ == '__main__':
