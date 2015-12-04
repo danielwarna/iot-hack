@@ -5,6 +5,7 @@ from datetime import datetime
 from graphs import serve_graph
 
 import config
+import json
 
 app = Flask(__name__)
 
@@ -26,14 +27,34 @@ class Measurement(db.Model):
         self.sensor = sensor;
         self.value = value
 
-
 db.create_all()
 
-for i in range(1, 100):
-    m = Measurement(datetime.today(), "TEST", 532.22)
-    db.session.add(m)
+def parse(inputString):
+    jsonS = json.loads(inputString)
+    for i in jsonS:
+        if len(inputString)>1:
+            for j in i['senses']:
+                id = Measurement.sensor(j['sid'])
+                val = Measurement.val(j['val'])
+                ts = Measurement.timestamp(datetime.fromtimestamp((str(j['ts'])).strftime('%Y-%m-%d %H:%M:%S')))
 
-db.session.commit()  
+                db.session.add(id)
+                db.session.add(val)
+                db.session.add(ts)
+        else:
+            id = Measurement.sensor(i['sid'])
+            val = Measurement.val(i['val'])
+            ts = Measurement.timestamp(datetime.fromtimestamp((str(i['ts'])).strftime('%Y-%m-%d %H:%M:%S')))
+
+            db.session.add(id)
+            db.session.add(val)
+            db.session.add(ts)
+
+#for i in range(1, 100):
+#    m = Measurement(datetime.today(), "TEST", 532.22)
+#    db.session.add(m)
+
+#db.session.commit()
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -45,7 +66,9 @@ def hello_world():
 @app.route('/api', methods=['POST', 'GET'])
 def api():
     print "API request"
-    print request.get_json()
+    req = request.get_json()
+    print req
+    parse(req)
     return "test"
 
 #Hit kommer generella cloud requests
