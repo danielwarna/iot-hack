@@ -13,7 +13,7 @@ def hello_world():
 
 
 @app.route('/api/', methods=['POST', 'GET'])
-def thingsee_in():
+def api():
     print "API request"
     return "test"
 
