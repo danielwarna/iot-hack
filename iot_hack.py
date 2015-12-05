@@ -120,5 +120,29 @@ def show_graph():
     return serve_3d_graph(sensor_values_1, sensor_values_2, sensor_values_3)
 
 
+@app.route('/graph/js/')
+def js_graph():
+    lateral = get_sensor_values_from_db("lateral", fromtime=datetime(2015,12,5,15,0))
+    print lateral
+
+    return "Show js graphs"
+
+
+def get_sensor_values_from_db(sensor, fromtime=None, totime=None):
+    if fromtime and totime:
+        values = Measurement.query.filter(Measurement.sensor == sensor, Measurement.timestamp > fromtime, Measurement.timestamp < totime).order_by(Measurement.timestamp)
+    elif fromtime:
+        values = Measurement.query.filter(Measurement.sensor == sensor, Measurement.timestamp > fromtime).order_by(Measurement.timestamp)
+    elif totime:
+        values = Measurement.query.filter(Measurement.sensor == sensor, Measurement.timestamp < totime).order_by(Measurement.timestamp)
+    else:
+        values = Measurement.query.filter(Measurement.sensor == sensor)
+    sensor_data = []
+    for v in values:
+        sensor_data.append([v.timestamp.strftime("%s"), v.value])
+
+    return sensor_data
+
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=app.config.get("PORT"))
