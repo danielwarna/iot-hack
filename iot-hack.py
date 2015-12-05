@@ -24,10 +24,18 @@ class Measurement(db.Model):
 
     def __init__(self, timestamp, sensor, value):
         self.timestamp = timestamp
-        self.sensor = sensor;
+        self.sensor = sensor
         self.value = value
 
 db.create_all()
+
+def sensor_names(inputstring):
+    if inputstring == "0x00050100":
+        sens = "longitude"
+    elif inputstring == "0x00050200":
+        sens = "lateral"
+    else:
+        sens = "vertical"
 
 def parse(inputString):
     inputString.replace("u'", '"')
@@ -37,21 +45,18 @@ def parse(inputString):
     for i in jsonS:
         if len(jsonS)>1:
             for j in i['senses']:
-                id = Measurement.sensor(j['sId'])
-                val = Measurement.val(j['val'])
-                ts = Measurement.timestamp(datetime.fromtimestamp((str(j['ts'])).strftime('%Y-%m-%d %H:%M:%S')))
+                sens = sensor_names(j['sId'])
+                date = datetime.fromtimestamp((str(j['ts'])).strftime('%Y-%m-%d %H:%M:%S'))
+                m = Measurement(date, sens, j['val'])
 
-                db.session.add(id)
-                db.session.add(val)
-                db.session.add(ts)
+                db.session.add(m)
+
         else:
-            id = Measurement.sensor(i['sId'])
-            val = Measurement.val(i['val'])
-            ts = Measurement.timestamp(datetime.fromtimestamp((str(i['ts'])).strftime('%Y-%m-%d %H:%M:%S')))
+            sens = sensor_names(j['sId'])
+            date = datetime.fromtimestamp((str(j['ts'])).strftime('%Y-%m-%d %H:%M:%S'))
+            m = Measurement(date, sens, i['val'])
 
-            db.session.add(id)
-            db.session.add(val)
-            db.session.add(ts)
+            db.session.add(m)
 
 #for i in range(1, 100):
 #    m = Measurement(datetime.today(), "TEST", 532.22)
