@@ -1,4 +1,4 @@
-from flask import Flask, current_app, request
+from flask import Flask, current_app, request, Response
 from flask.ext.sqlalchemy import SQLAlchemy
 
 from datetime import datetime
@@ -75,7 +75,18 @@ def api():
     req = request.get_data()
     print req
     parse(req)
-    return "test"
+    
+    reply = """{
+    "timestamp": 1381537803046,
+    "added": 1
+    }"""
+
+    resp = Response(reply)
+    resp.headers["Content-Type"] = "application/json";
+
+
+    return resp
+
 
 #Hit kommer generella cloud requests
 @app.route('/v2/events', methods=['POST', 'GET'])
