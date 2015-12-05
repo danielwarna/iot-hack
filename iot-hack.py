@@ -30,10 +30,12 @@ class Measurement(db.Model):
 db.create_all()
 
 def parse(inputString):
-    #jsonS = json.loads(inputString)
-    jsonS = inputString
+    inputString.replace("u'", '"')
+    inputString.replace("'", '"')
+    jsonS = json.loads(inputString)
+    #jsonS = inputString
     for i in jsonS:
-        if len(inputString)>1:
+        if len(jsonS)>1:
             for j in i['senses']:
                 id = Measurement.sensor(j['sId'])
                 val = Measurement.val(j['val'])
