@@ -1,4 +1,4 @@
-from flask import Flask, current_app, request, Response
+from flask import Flask, current_app, request, Response, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 from graphs import serve_graph, serve_3d_graph
 from datetime import datetime
@@ -122,13 +122,13 @@ def show_graph():
 
 @app.route('/graph/js/')
 def js_graph():
-    lateral = get_sensor_values_from_db("lateral", fromtime=datetime(2015,12,5,15,0))
+    lateral = get_sensor_values_from_db("lateral")
     print lateral
-
-    return "Show js graphs"
+    return render_template("jsgraph.html", sensordata=json.dumps(lateral), sensorname="Lateral")
 
 
 def get_sensor_values_from_db(sensor, fromtime=None, totime=None):
+
     if fromtime and totime:
         values = Measurement.query.filter(Measurement.sensor == sensor, Measurement.timestamp > fromtime, Measurement.timestamp < totime).order_by(Measurement.timestamp)
     elif fromtime:
@@ -139,7 +139,7 @@ def get_sensor_values_from_db(sensor, fromtime=None, totime=None):
         values = Measurement.query.filter(Measurement.sensor == sensor)
     sensor_data = []
     for v in values:
-        sensor_data.append([v.timestamp.strftime("%s"), v.value])
+        sensor_data.append([int(v.timestamp.strftime("%s"))*1000, v.value])
 
     return sensor_data
 
