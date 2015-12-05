@@ -45,7 +45,21 @@
                             type: 'all',
                             text: 'All'
                     }],
-                    inputEnabled: true
+                    inputEnabled: true,
+                    inputDateFormat: '%Y-%m-%d %H:%M:%S',
+                    inputEditDateFormat: '%Y-%m-%d %H:%M:%S',
+                    inputDateParser: function (value) {
+                        value = value.split(/[-: ]/);
+                        Y = parseInt(value[0]);
+                        M = parseInt(value[1])-1;
+                        D = parseInt(value[2]);
+                        h = parseInt(value[3]);
+                        min = parseInt(value[4]);
+                        sec = parseInt(value[4]);
+                        newdate = Date.UTC(Y, M, D, h, min, sec);
+                        return newdate;
+                    },
+                    inputBoxWidth: 180
                 },
 
                 legend: {
