@@ -35,7 +35,7 @@ def parse(inputString):
     for i in jsonS:
         if len(inputString)>1:
             for j in i['senses']:
-                id = Measurement.sensor(j['sid'])
+                id = Measurement.sensor(j['sId'])
                 val = Measurement.val(j['val'])
                 ts = Measurement.timestamp(datetime.fromtimestamp((str(j['ts'])).strftime('%Y-%m-%d %H:%M:%S')))
 
@@ -43,7 +43,7 @@ def parse(inputString):
                 db.session.add(val)
                 db.session.add(ts)
         else:
-            id = Measurement.sensor(i['sid'])
+            id = Measurement.sensor(i['sId'])
             val = Measurement.val(i['val'])
             ts = Measurement.timestamp(datetime.fromtimestamp((str(i['ts'])).strftime('%Y-%m-%d %H:%M:%S')))
 
