@@ -47,11 +47,12 @@ def parse(inputString):
     for i in jsonS:
         for j in i['senses']:
             sens = sensor_names(j['sId'])
-            date = datetime.fromtimestamp(int(str(jsonS[j]['senses'][0]['ts'])[:-3]).strftime('%Y-%m-%d %H:%M:%S'))
-
+            date = datetime.fromtimestamp(int(str(jsonS[j]['ts'])[:-3]))
             m = Measurement(date, sens, j['val'])
 
             db.session.add(m)
+
+    db.session.commit()
 
 
 #for i in range(1, 100):
