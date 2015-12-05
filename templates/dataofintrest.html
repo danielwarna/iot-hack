@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <ul id="navigation">
+    {% for item in doi %}
+        <li><a href="/graph/js?from={{ item.starttimestamp }}&to={{item.endtimestamp}}"> {{item.id}}</a> <span>{{ item.starttimestamp }}</span> <span>{{ item.endtimestamp }}</span></li>
+    {% endfor %}
+    </ul>
+</head>
+<body>
+
+</body>
+</html>

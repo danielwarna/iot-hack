@@ -123,6 +123,11 @@ def debug_mode():
     assert current_app.debug == False, "Don't panic! You're here by request of debug()"
     return "aa"
 
+@app.route('/doi/')
+def dataofintrest():
+    doi = DataOfIntrest.query.filter    ()
+
+    return render_template("dataofintrest.html", doi=doi)
 
 @app.route('/graph/')
 def show_graph():
