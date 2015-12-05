@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import current_app, request
-from graphs import serve_graph
+from graphs import serve_graph, serve_3d_graph
 
 import config
 
@@ -37,7 +37,8 @@ def show_graph():
     sensor_values_1 = [1, 2, 3, 4]
     sensor_values_2 = [4, 3, 2, 1]
     sensor_values_3 = [8, 7, 6, 3]
-    return serve_graph(sensor_values_1, sensor_values_2, sensor_values_3)
+    # return serve_graph(sensor_values_1, sensor_values_2, sensor_values_3)
+    return serve_3d_graph(sensor_values_1, sensor_values_2, sensor_values_3)
 
 
 @app.route('/<path:path>/', methods=['POST', 'GET'])
