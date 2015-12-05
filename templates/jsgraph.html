@@ -18,43 +18,80 @@
                 useUTC: false
             }
         });
-        
+
         function drawGraph(data) {
             // Create the chart
             $('#container').highcharts('StockChart', {
 
+                rangeSelector: {
+                    selected: 1,
+                    inputBoxWidth: 300,
+                    buttons: [{
+                            type: 'minute',
+                            count: 1,
+                            text: '1min'
+                        }, {
+                            type: 'minute',
+                            count: 5,
+                            text: '5min'
+                        }, {
+                            type: 'minute',
+                            count: 10,
+                            text: '10min'
+                        }, {
+                            type: 'hour',
+                            count: 1,
+                            text: '1h'
+                        }, {
+                            type: 'all',
+                            text: 'All'
+                    }],
+                    inputEnabled: false
+                },
 
-                rangeSelector : {
-                    selected : 1
+                scrollbar : {
+                    minWidth: 1
                 },
 
                 title : {
                     text : 'Sensor data'
                 },
 
+                yAxis: {
+                    opposite: false,
+                    labels: {
+                        format: '{value} g',
+                        align: "right"
+                    }
+                },
+
+                xAxis: {
+                    ordinal: false
+                },
+
                 series : [{
-                    name : '{{ sensorname[0] }}',
-                    data : data[0],
-                    type: 'spline',
-                    tooltip: {
-                        valueDecimals: 3
+                        name : '{{ sensorname[0] }}',
+                        data : data[0],
+                        type: 'line',
+                        tooltip: {
+                            valueDecimals: 3
                     }
-                },
-                {
-                    name : '{{ sensorname[1] }}',
-                    data : data[1],
-                    type: 'spline',
-                    tooltip: {
-                        valueDecimals: 3
-                    }
-                },
-                {
-                    name : '{{ sensorname[2] }}',
-                    data : data[2],
-                    type: 'spline',
-                    tooltip: {
-                        valueDecimals: 3
-                    }
+                    },
+                    {
+                        name : '{{ sensorname[1] }}',
+                        data : data[1],
+                        type: 'line',
+                        tooltip: {
+                            valueDecimals: 3
+                        }
+                    },
+                    {
+                        name : '{{ sensorname[2] }}',
+                        data : data[2],
+                        type: 'line',
+                        tooltip: {
+                            valueDecimals: 3
+                        }
                 }]
             });
         };
