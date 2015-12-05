@@ -5,6 +5,7 @@ from datetime import datetime
 
 import config
 import json
+import time
 
 app = Flask(__name__)
 
@@ -164,10 +165,12 @@ def get_sensor_values_from_db(sensor, fromtime=None, totime=None):
     elif totime:
         values = Measurement.query.filter(Measurement.sensor == sensor, Measurement.timestamp < totime).order_by(Measurement.timestamp)
     else:
-        values = Measurement.query.filter(Measurement.sensor == sensor)
+        values = Measurement.query.filter(Measurement.sensor == sensor).order_by(Measurement.timestamp)
+
     sensor_data = []
     for v in values:
-        sensor_data.append([int(v.timestamp.strftime("%s"))*1000, v.value])
+        date_ms = time.mktime(v.timestamp.timetuple()) * 1000 + v.timestamp.microsecond / 1000
+        sensor_data.append([int(date_ms), v.value])
 
     return sensor_data
 
