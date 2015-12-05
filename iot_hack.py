@@ -152,8 +152,11 @@ def show_graph():
 @app.route('/graph/js/')
 def js_graph():
     lateral = get_sensor_values_from_db("lateral")
-    print lateral
-    return render_template("jsgraph.html", sensordata=json.dumps(lateral), sensorname="Lateral")
+    vertical = get_sensor_values_from_db("vertical")
+    longitude = get_sensor_values_from_db("longitude")
+    sens_data = json.dumps([lateral, vertical, longitude])
+    sens_names = ["Lateral", "Vertical", "Longitude"]
+    return render_template("jsgraph.html", sensordata=sens_data, sensorname=sens_names)
 
 
 def get_sensor_values_from_db(sensor, fromtime=None, totime=None):

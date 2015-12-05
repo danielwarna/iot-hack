@@ -22,12 +22,28 @@
                 },
 
                 title : {
-                    text : '{{ sensorname }} sensor data'
+                    text : 'Sensor data'
                 },
 
                 series : [{
-                    name : '{{ sensorname }}',
-                    data : data,
+                    name : '{{ sensorname[0] }}',
+                    data : data[0],
+                    type: 'spline',
+                    tooltip: {
+                        valueDecimals: 3
+                    }
+                },
+                {
+                    name : '{{ sensorname[1] }}',
+                    data : data[1],
+                    type: 'spline',
+                    tooltip: {
+                        valueDecimals: 3
+                    }
+                },
+                {
+                    name : '{{ sensorname[2] }}',
+                    data : data[2],
                     type: 'spline',
                     tooltip: {
                         valueDecimals: 3
@@ -35,6 +51,9 @@
                 }]
             });
         };
+
+
+
         drawGraph({{ sensordata|safe }})
 
     </script>
