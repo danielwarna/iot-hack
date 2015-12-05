@@ -69,7 +69,7 @@ def hello_world():
 @app.route('/api', methods=['POST', 'GET'])
 def api():
     print "API request"
-    req = request.get_json()
+    req = request.get_data()
     print req
     parse(req)
     return "test"
