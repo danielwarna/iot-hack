@@ -37,7 +37,7 @@ def sensor_names(inputstring):
     elif inputstring == "0x00050300":
         sens = "vertical"
     else:
-        sens = "unknown"
+        sens = inputstring
     return sens
 
 def parse(inputString):
