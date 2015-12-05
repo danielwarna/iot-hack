@@ -2,9 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>JS Charts</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 </head>
 <body>
+
+    <div id="container" style="height: 400px; min-width: 310px"></div>
+    <script>
+        function drawGraph(data) {
+            // Create the chart
+            $('#container').highcharts('StockChart', {
+
+
+                rangeSelector : {
+                    selected : 1
+                },
+
+                title : {
+                    text : '{{ sensorname }} sensor data'
+                },
+
+                series : [{
+                    name : '{{ sensorname }}',
+                    data : data,
+                    type: 'spline',
+                    tooltip: {
+                        valueDecimals: 3
+                    }
+                }]
+            });
+        };
+        drawGraph({{ sensordata|safe }})
+
+    </script>
+
 
 </body>
 </html>
