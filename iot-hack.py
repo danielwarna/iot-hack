@@ -48,7 +48,7 @@ def parse(inputString):
         for j in i['senses']:
             sens = sensor_names(j['sId'])
             #date = datetime.fromtimestamp(int(str(j['ts'])[:-3]))
-            date = datetime.fromtimestamp(j['ts'])
+            date = datetime.fromtimestamp(j['ts'] / 1000.0)
             m = Measurement(date, sens, j['val'])
 
             db.session.add(m)
