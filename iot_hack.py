@@ -112,12 +112,40 @@ def debug_mode():
 
 @app.route('/graph/')
 def show_graph():
-    # TODO get this from database
-    sensor_values_1 = [1, 2, 3, 4]
-    sensor_values_2 = [4, 3, 2, 1]
-    sensor_values_3 = [8, 7, 6, 3]
-    # return serve_graph(sensor_values_1, sensor_values_2, sensor_values_3)
-    return serve_3d_graph(sensor_values_1, sensor_values_2, sensor_values_3)
+    sensor_values_1a = []
+    sensor_values_1b = []
+    sensor_values_2a = []
+    sensor_values_2b = []
+    sensor_values_3a = []
+    sensor_values_3b = []
+
+    d_min = None
+    d_max = None
+    for instance in db.session.query(Measurement).order_by(Measurement.timestamp):
+        # 1970 were all about hippies anyway
+        if instance.timestamp.year < 2015:
+            continue
+
+        # Locate earliest and latest timestamp
+        if d_min is None:
+            d_min = instance.timestamp
+        d_max = instance.timestamp
+
+        if instance.sensor == "longitude":
+            sensor_values_1a.append(instance.value)
+            sensor_values_1b.append(instance.timestamp)
+        elif instance.sensor == "lateral":
+            sensor_values_2a.append(instance.value)
+            sensor_values_2b.append(instance.timestamp)
+        elif instance.sensor == "vertical":
+            sensor_values_3a.append(instance.value)
+            sensor_values_3b.append(instance.timestamp)
+
+    return serve_graph(
+        sensor1_values=sensor_values_1a, sensor2_values=sensor_values_2a, sensor3_values=sensor_values_3a,
+        sensor1_timestamp=sensor_values_1b, sensor2_timestamp=sensor_values_2b, sensor3_timestamp=sensor_values_3b,
+        dateMin=d_min, dateMax=d_max)
+    #return serve_3d_graph(sensor_values_1, sensor_values_2, sensor_values_3)
 
 
 if __name__ == '__main__':
