@@ -21,7 +21,10 @@
 
         function drawGraph(data) {
             // Create the chart
-            $('#container').highcharts('StockChart', {
+            window.chart = new Highcharts.StockChart({
+                chart : {
+                    renderTo : 'container'
+                },
 
                 rangeSelector: {
                     selected: 1,
@@ -116,6 +119,18 @@
 
 
         drawGraph({{ sensordata|safe }})
+
+        var default_dates = window.chart.xAxis[0].getExtremes();
+
+        var from_date = new Date('{{ request.args.get('from') }}');
+        if (isNaN( from_date.getTime() )) {
+            from_date = new Date(default_dates.min);
+        }
+        var to_date = new Date('{{ request.args.get('to') }}');
+        if (isNaN( to_date.getTime() )) {
+            to_date = new Date(default_dates.max);
+        }
+        window.chart.xAxis[0].setExtremes(from_date, to_date);
 
     </script>
 
