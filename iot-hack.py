@@ -45,20 +45,13 @@ def parse(inputString):
     inputString.replace("'", '"')
     jsonS = json.loads(inputString)
     for i in jsonS:
-        if len(jsonS)>1:
-            for j in i['senses']:
-                sens = sensor_names(j['sId'])
-                date = datetime.fromtimestamp((str(j['ts'])).strftime('%Y-%m-%d %H:%M:%S'))
-                m = Measurement(date, sens, j['val'])
-
-                db.session.add(m)
-
-        else:
-            sens = sensor_names(i['sId'])
-            date = datetime.fromtimestamp((str(i['ts'])).strftime('%Y-%m-%d %H:%M:%S'))
-            m = Measurement(date, sens, i['val'])
+        for j in i['senses']:
+            sens = sensor_names(j['sId'])
+            date = datetime.fromtimestamp((str(j['ts'])).strftime('%Y-%m-%d %H:%M:%S'))
+            m = Measurement(date, sens, j['val'])
 
             db.session.add(m)
+
 
 #for i in range(1, 100):
 #    m = Measurement(datetime.today(), "TEST", 532.22)
