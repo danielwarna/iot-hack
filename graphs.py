@@ -14,17 +14,48 @@ from matplotlib.colors import LightSource
 import matplotlib.pyplot as plt
 import numpy as np
 
-def serve_graph(sensor1=None, sensor2=None, sensor3=None):
+import matplotlib.dates as mdates
+import datetime
+
+
+def serve_graph(sensor1_values=None, sensor2_values=None, sensor3_values=None,
+                sensor1_timestamp=None, sensor2_timestamp=None, sensor3_timestamp=None,
+                label1="longitude", label2="lateral", label3="vertical",
+                dateMin=None, dateMax=None):
     ram_file = cStringIO.StringIO()
-    # plt.plot([1, 2, 3, 4])
-    plt.ylabel('Jytky/s')
-    plt.xlabel('Herra Soini')
-    if sensor1:
-        plt.plot(sensor1)
-    if sensor2:
-        plt.plot(sensor2)
-    if sensor3:
-        plt.plot(sensor3)
+    plt.ylabel('g')
+    plt.xlabel('time')
+    fig, ax = plt.subplots()
+    if sensor1_values:
+        if sensor1_timestamp:
+            ax.plot(sensor1_timestamp, sensor1_values, 'b-', label=label1)
+        else:
+            ax.plot(sensor1_values, 'b-', label=label1)
+    if sensor2_values:
+        if sensor2_timestamp:
+            ax.plot(sensor2_timestamp, sensor2_values, 'g-', label=label2)
+        else:
+            ax.plot(sensor2_values, 'g-', label=label2)
+    if sensor3_values:
+        if sensor3_timestamp:
+            ax.plot(sensor3_timestamp, sensor3_values, 'm-', label=label3)
+        else:
+            ax.plot(sensor3_values, 'm-', label=label3)
+    plt.legend(bbox_to_anchor=(1, 1), bbox_transform=plt.gcf().transFigure)
+
+
+    days = mdates.DayLocator()  #every day
+    hours = mdates.HourLocator() #every hour
+    formatting = mdates.DateFormatter('%D %H:%M')
+
+    ax.xaxis.set_major_locator(days)
+    ax.xaxis.set_major_formatter(formatting)
+    ax.xaxis.set_minor_locator(hours)
+
+    ax.set_xlim(dateMin, dateMax)
+    # rotates and right aligns the x labels, and moves the bottom of the
+    # axes up to make room for them
+    fig.autofmt_xdate()
 
     plt.savefig(ram_file, format='png')
     ram_file.seek(0)
