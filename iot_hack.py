@@ -27,6 +27,19 @@ class Measurement(db.Model):
         self.sensor = sensor
         self.value = value
 
+
+class DataOfIntrest(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    starttimestamp = db.Column(db.DateTime())
+    endtimestamp = db.Column(db.DateTime())
+    stdev = db.Column(db.Float())
+
+    def __init__(self,start, end, stdev):
+        self.starttimestamp = start
+        self.endtimestamp = end
+        self.stdev = stdev
+
+
 db.create_all()
 
 def sensor_names(inputstring):
