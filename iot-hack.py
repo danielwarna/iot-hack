@@ -81,9 +81,18 @@ def api():
     "added": 1
     }"""
 
+    #1449319059
+    #1381537803046
+
+    rep = dict()
+    rep['timestamp'] = int(datetime.today().strftime("%s")) * 1000
+    rep['added'] = 1   
+
+    reply =json.dumps(rep)
+
     resp = Response(reply)
     resp.headers["Content-Type"] = "application/json";
-
+    resp.mimetype = "application/json"
 
     return resp
 
