@@ -36,12 +36,12 @@ def sensor_names(inputstring):
         sens = "lateral"
     else:
         sens = "vertical"
+    return sens
 
 def parse(inputString):
     inputString.replace("u'", '"')
     inputString.replace("'", '"')
     jsonS = json.loads(inputString)
-    #jsonS = inputString
     for i in jsonS:
         if len(jsonS)>1:
             for j in i['senses']:
@@ -52,7 +52,7 @@ def parse(inputString):
                 db.session.add(m)
 
         else:
-            sens = sensor_names(j['sId'])
+            sens = sensor_names(i['sId'])
             date = datetime.fromtimestamp((str(j['ts'])).strftime('%Y-%m-%d %H:%M:%S'))
             m = Measurement(date, sens, i['val'])
 
