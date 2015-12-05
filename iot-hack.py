@@ -34,8 +34,10 @@ def sensor_names(inputstring):
         sens = "longitude"
     elif inputstring == "0x00050200":
         sens = "lateral"
-    else:
+    elif inputstring == "0x00050300":
         sens = "vertical"
+    else:
+        sens = "unknown"
     return sens
 
 def parse(inputString):
@@ -53,7 +55,7 @@ def parse(inputString):
 
         else:
             sens = sensor_names(i['sId'])
-            date = datetime.fromtimestamp((str(j['ts'])).strftime('%Y-%m-%d %H:%M:%S'))
+            date = datetime.fromtimestamp((str(i['ts'])).strftime('%Y-%m-%d %H:%M:%S'))
             m = Measurement(date, sens, i['val'])
 
             db.session.add(m)
