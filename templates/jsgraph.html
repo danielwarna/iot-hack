@@ -122,11 +122,11 @@
 
         var default_dates = window.chart.xAxis[0].getExtremes();
 
-        var from_date = window.chart.rangeSelector.options.inputDateParser('{{ request.args.get('from') }}'); //new Date('');
+        var from_date = new Date('{{ request.args.get('from') }}');
         if (isNaN( from_date.getTime() )) {
             from_date = new Date(default_dates.min);
         }
-        var to_date = window.chart.rangeSelector.options.inputDateParser('{{ request.args.get('to') }}'); // new Date('');
+        var to_date = new Date('{{ request.args.get('to') }}');
         if (isNaN( to_date.getTime() )) {
             to_date = new Date(default_dates.max);
         }
