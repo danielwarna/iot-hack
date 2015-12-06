@@ -1,0 +1,46 @@
+body {
+    /*background-image: url("/static/pattern2.jpg")*/
+}
+
+h1 {
+    font-size: 72px;
+    margin-top: 0px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.flip-container {
+    background-color: white;
+}
+
+.flip {
+    height: 320px;
+    background:no-repeat center center;
+    background-image: url("http://i.imgur.com/7hR8IIr.gif")
+}
+
+.flip > h1 {
+    text-align: center;
+    padding-top: 60px;
+}
+
+.container {
+    padding-top: 40px;
+}
+
+.titlelink {
+    text-align: center;
+}
+
+.titlelink a {
+    font-size:32px !important;
+    color: black;
+}
+
+.titlelink a:hover {
+    color: #e91d63;
+    text-decoration: none;
+}
+
+.titlelink i {
+    font-size: 70px;
+}

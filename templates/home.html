@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="/static/homestyle.css">
+
+<div class="flip-container">
+    <div class="flip">
+        <h1>AcroBacklog</h1>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-4 titlelink">
+            
+            <a href="/graph/js/"> <i class="fa fa-line-chart"></i><br> Graphs</a>
+
+        </div>
+        <div class="col-md-4 titlelink">
+            
+            <a href="/doi/"><i class="fa fa-database"></i><br> Data of intrest</a>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}

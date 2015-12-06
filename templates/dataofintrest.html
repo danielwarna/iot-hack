@@ -1,16 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+{% extends "base.html" %}
 
-    <ul id="navigation">
-    {% for item in doi %}
-        <li><a href="/graph/js?from={{ item.starttimestamp }}&to={{item.endtimestamp}}"> {{item.id}}</a> <span>{{ item.starttimestamp }}</span> <span>{{ item.endtimestamp }}</span></li>
-    {% endfor %}
-    </ul>
-</head>
-<body>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+            <h1>Data of Intrest</h1>
+                <table class="table table-striped" id="navigation">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Link</th>
+                        <th>StDev</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for item in doi %}
+                    <tr>
+                        <td>{{item.id}}</td>
+                        <td><a href="/graph/js?from={{ item.starttimestamp }}%26to={{item.endtimestamp}}">Link</a></td>
+                        <td>{{item.stdev}}</td>
+                        <td>{{ item.starttimestamp }}</td>
 
-</body>
-</html>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

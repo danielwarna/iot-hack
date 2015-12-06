@@ -2,16 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AcroBackLog</title>
+    <title>AcroBacklog</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/allstyle.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:600,400' rel='stylesheet' type='text/css'>
+
 </head>
 <body>
-    <h1>AkroBackLog</h1>
-    <ul>
-        <li><a href="/graph/js/">Graph</a></li>
-        <li><a href="/doi/">Data points of interest</a></li>
-        <img src="http://i.imgur.com/7hR8IIr.gif" />
-    </ul>
+
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <a class="navbar-brand" href="/">AcroBacklog</a></div></nav>
+    
+  {% block content %}{% endblock %}
+    
+  <div id="footwrap">
+    {% include 'footer.html' %}
+  </div>
 
 
 </body>
 </html>
+

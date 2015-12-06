@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>JS Charts</title>
+{% extends "base.html" %}
 
+{% block content %}
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
-</head>
-<body>
 
     <div id="container" style="height: 650px; min-width: 310px"></div>
     <script>
@@ -134,6 +129,4 @@
 
     </script>
 
-
-</body>
-</html>
+{% endblock %}

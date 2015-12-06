@@ -78,7 +78,7 @@ def parse(inputString):
 
 @app.route('/', methods=['POST', 'GET'])
 def hello_world():
-    return render_template("base.html")
+    return render_template("home.html")
 
 
 #Hit kommer on event requestar
